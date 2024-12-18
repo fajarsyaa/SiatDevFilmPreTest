@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JarsFilm</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<style>
+  .categories-container {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 10px 40px;
+    gap: 10px !important;
+  }
+
+  .categories-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  .hero-section {
+    background-image: url("image/hero_section.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+  }
+</style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">JarsFilm</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html" onclick="reloadPage()">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#movies">Movies</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#section-categori">Categories</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Film Detail Section -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <!-- Film Thumbnail -->
+          <div class="card mb-4 card-custom">
+            <img src="image/hero_section.jpg" class="card-img-top" alt="Film Thumbnail" />
+            <div class="card-body text-center">
+              <h4 class="card-title"></h4>
+              <p class="card-text text-muted"></p>
+              <p class="card-text"></p>
+              <p class="card-text"> <strong></strong></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <!-- Actor and Director -->
+          <div class="card mb-4 card-custom">
+            <div class="card-body">
+              <h5 class="card-title">Detail Film</h5>
+              <ul class="list-unstyled">
+
+              </ul>
+            </div>
+          </div>
+
+          <!-- Watch Trailer / Video -->
+          <div class="card mb-4 card-custom">
+            <div class="card-body text-center">
+              <h5 class="card-title">Watch the Movie</h5>
+              <video controls class="w-100" src=""></video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-5 mt-auto">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4 mb-md-0">
+          <h3 class="h5 mb-3">About JarsFilm</h3>
+          <p class="small">JarsFilm is a web streaming platform developed to fulfill the pre-test requirements for
+            junior programmers at SIAT-DEV Diskominfo and Sandi Prov. Aceh in 2025. The platform is powered by a robust
+            backend solution developed by faJars.</p>
+        </div>
+        <div class="col-md-4 mb-4 mb-md-0">
+          <h3 class="h5 mb-3">Quick Links</h3>
+          <ul class="list-unstyled">
+            <li><a href="https://api.whatsapp.com/send/?phone=6287815912576&text&type=phone_number&app_absent=0"
+                class="text-white-50">About Us</a></li>
+            <li><a href="https://api.whatsapp.com/send/?phone=6287815912576&text&type=phone_number&app_absent=0"
+                class="text-white-50">Contact</a></li>
+            <li><a href="#" class="text-white-50">FAQ</a></li>
+            <li><a href="#" class="text-white-50">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h3 class="h5 mb-3">Connect With Us</h3>
+          <p class="small">Follow us on social media for the latest updates and movie recommendations.</p>
+          <div class="d-flex gap-3 mt-3">
+            <a href="https://www.facebook.com/share/1WajJxkgKZ/?mibextid=wwXIfr" class="text-white"
+              aria-label="Facebook">
+              <i class="bi bi-facebook" style="font-size: 24px;"></i>
+            </a>
+            <a href="https://www.instagram.com/fajarsya__/profilecard/?igsh=MXEzcWVldGEyMnhyYg==" class="text-white"
+              aria-label="Instagram">
+              <i class="bi bi-instagram" style="font-size: 24px;"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4 text-center">
+        <p class="small">&copy; 2024 JarsFilm. Dev by faJars.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const movieId = urlParams.get("id");
+
+    function fetchMovieDetail(id) {
+      const url = `http://localhost:8000/api/film/${id}`;
+
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data && data.code === 200 && data.data) {
+            const movie = data.data;
+
+            document.querySelector(
+              ".card-img-top"
+            ).src = `http://localhost:8000/storage/${movie.path_thumbnail}`;
+            document.querySelector(".card-title").textContent = movie.judul;
+            document.querySelector(
+              ".card-text.text-muted"
+            ).textContent = `Publisher: ${movie.publisher}`;
+            document.querySelector(
+              ".card-text"
+            ).textContent = `Durasi: ${movie.durasi} menit | Tahun Rilis: ${movie.tahun_rilis}`;
+            document.querySelector(
+              ".card-text + .card-text"
+            ).textContent = `Kategori: ${movie.id_kategori}`;
+
+            document.querySelector(".card-body p + p").textContent =
+              movie.sinopsis;
+
+            const detailFilm = movie.detail_film;
+            document.querySelector(".list-unstyled").innerHTML = `
+          <li><strong>Aktor:</strong> ${detailFilm.aktor}</li>
+          <li><strong>Sutradara:</strong> ${detailFilm.sutradara}</li>
+          <li><strong>Rating:</strong> <span class="rating-star">★★★★★</span> ${detailFilm.rating}</li>
+          <li><strong>Publisher:</strong> ${movie.publisher}</li>
+        `;
+
+            const videoElement = document.querySelector("video");
+            if (movie.path_video) {
+              videoElement.src = `http://localhost:8000/storage/${movie.path_video}`;
+              console.log(`http://localhost:8000/storage/${movie.path_video}`);
+
+            } else {
+              videoElement.parentElement.style.display = "none";
+            }
+          } else {
+            console.error("Film tidak ditemukan");
+            alert("Film tidak ditemukan!");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching movie data:", error);
+          alert("Terjadi kesalahan saat memuat data film.");
+        });
+    }
+
+    if (movieId) {
+      fetchMovieDetail(movieId);
+    } else {
+      alert("ID film tidak ditemukan!");
+    }
+  </script>
+</body>
+
+</html>
