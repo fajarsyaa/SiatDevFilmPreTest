@@ -33,4 +33,5 @@ php artisan serve
 ```
 
 setelah SiatFilmBE berhasil dirunning, maka masuk ke dalam folder SiatFilmFE dan klik 2x pada file index.html kemudian pilih browser pilihan anda, atau klik kanan pada file index.html kemudian pilih "open with" pilih browser anda
+
 ![Gamabar file index.html](image-1.png)
