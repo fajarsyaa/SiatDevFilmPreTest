@@ -17,7 +17,7 @@ Pastikan Anda memiliki perangkat lunak berikut sebelum memulai:
 Pertama, clone repositori ini ke dalam direktori lokal:
 
 ```bash
-git clone https://github.com/username/repository-name.git
+git clone https://github.com/fajarsyaa/SiatDevFilmPreTest.git
 cd repository-name
 ```
 
